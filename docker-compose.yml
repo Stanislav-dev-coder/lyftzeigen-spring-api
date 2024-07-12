@@ -1,0 +1,29 @@
+version: '3'
+services:
+  spring-api:
+    build: .
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+  caddy:
+    image: caddy:latest
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - backend
+    depends_on:
+      - spring-api
+
+networks:
+  backend:
+
+volumes:
+  caddy_data:
+  caddy_config:
