@@ -28,4 +28,4 @@ jobs:
 
     - name: Deploy to production
       run: |
-        ssh -o StrictHostKeyChecking=no git@github.com root@83.147.247.41 'cd lyftzeigen-spring-api/ && docker-compose pull && docker-compose up -d'
+        ssh root@83.147.247.41 'cd lyftzeigen-spring-api/ && docker-compose pull && docker-compose up -d'
