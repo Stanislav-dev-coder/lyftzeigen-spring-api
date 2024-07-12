@@ -19,5 +19,10 @@ jobs:
       run: |
         docker-compose up -d
     - name: Deploy to production
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-        ssh root@83.147.247.41 'cd lyftzeigen-spring-api/ && docker-compose pull && docker-compose up -d'
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa    
+        ssh -o StrictHostKeyChecking=no git@github.com root@83.147.247.41 'cd lyftzeigen-spring-api/ && docker-compose pull && docker-compose up -d'
