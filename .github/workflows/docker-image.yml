@@ -45,9 +45,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
 
-      - name: Ensure target directory is clean
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "rm -rf ~/lyftzeigen-spring-api/*"
-
       - name: Create Docker Compose config
         run: |
           cat docker-compose.yml | envsubst > docker-compose-secret.yml
