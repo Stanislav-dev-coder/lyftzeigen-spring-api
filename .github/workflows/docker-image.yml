@@ -49,15 +49,11 @@ jobs:
         run: |
           cat docker-compose.yml | envsubst > docker-compose-secret.yml
 
-      - name: Copy Docker Compose config
-        run: scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa docker-compose-secret.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:docker-compose.yml
+      - name: Copy project files
+        run: scp -r -o StrictHostKeyChecking=no . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/lyftzeigen-spring-api/
 
       - name: Connect and Pull
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "docker-compose pull && docker-compose up -d"
-
-      - name: Cleanup config
-        if: always()
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "rm docker-compose.yml"
+        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ~/lyftzeigen-spring-api && docker-compose pull && docker-compose up -d"
 
       - name: Cleanup keys
         if: always()
