@@ -29,7 +29,6 @@ public class SystemInfoDto {
     private String totalMemoryBin;
     private String freeDiskSpaceSI;
     private String freeDiskSpaceBin;
-    private List<File> rootList;
     private String hostname;
     private String ipAddress;
 
@@ -61,8 +60,6 @@ public class SystemInfoDto {
             this.freeDiskSpaceSI = "Unknown";
             this.freeDiskSpaceBin = "Unknown";
         }
-
-        this.rootList = List.of(File.listRoots());
 
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
