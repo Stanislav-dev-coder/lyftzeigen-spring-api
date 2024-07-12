@@ -1,6 +1,7 @@
 version: '3'
 services:
   spring-api:
+    image: emptyvessel/spring-api:latest
     build:
       context: .
       dockerfile: ./Dockerfile
