@@ -49,9 +49,6 @@ jobs:
         run: |
           cat docker-compose.yml | envsubst > docker-compose-secret.yml
 
-      - name: Copy project files
-        run: scp -r -o StrictHostKeyChecking=no ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/lyftzeigen-spring-api/
-
       - name: Connect and Pull
         run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ~/lyftzeigen-spring-api && docker-compose pull && docker-compose up -d"
 
