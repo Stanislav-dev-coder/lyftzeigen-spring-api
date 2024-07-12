@@ -1,3 +1,7 @@
 api.lyftzeigen.ru {
+<<<<<<< HEAD
     reverse_proxy spring-api:8080
+=======
+    reverse_proxy localhost:8080
+>>>>>>> a994d856c835f8c58fcfec1e4bcc84ce1ded6fdd
 }
