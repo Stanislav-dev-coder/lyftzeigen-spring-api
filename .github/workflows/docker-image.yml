@@ -53,8 +53,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             cd ~/lyftzeigen-spring-api &&
-            docker-compose down &&
             docker-compose pull &&
+            docker-compose down &&
             docker image prune -f &&
             docker-compose up -d
           "
