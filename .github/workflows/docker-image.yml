@@ -3,6 +3,9 @@ name: Docker Image CI / СD
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      -
+        '**/README.md'
   pull_request:
     branches: [ "main" ]
 
@@ -50,8 +53,14 @@ jobs:
           cat docker-compose.yml | envsubst > docker-compose-secret.yml
 
       - name: Connect and Pull
-        run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ~/lyftzeigen-spring-api && docker-compose pull && docker-compose up -d"
-
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd ~/lyftzeigen-spring-api &&
+            docker-compose pull &&
+            docker-compose down &&
+            docker image prune -f &&
+            docker-compose up -d
+          "
       - name: Cleanup keys
         if: always()
         run: rm -rf ~/.ssh docker-compose-secret.yml
