@@ -8,7 +8,8 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - backend
+      - my-shared-network
 
 networks:
-  backend:
+  my-shared-network:
+    external: true
